@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+    <!-- <script src="script.js" defer></script> -->
+    <link rel="stylesheet" href="chatapp.css">
+</head>
+
+<body>
+    <div>
+        <p ClassName="col">Chat App</p>
+    </div>
+    <input type="text" class="message" />
+    <button onclick="sendMsg()">Send Message</button>
+    <h1></h1>
+    <script>
+        //url display chat 
+        const socket = io('http://localhost:8000')
+        //create connection server and clients 
+        socket.on('connection')
+        //get data values and assign <h1>
+        socket.on('message', (data) => {
+            document.querySelector('h1').innerHTML = data;
+        })
+        // get data frome textbox using class (message)
+        const sendMsg = () => {
+            const userMessage = document.querySelector('.message').value;
+            socket.emit('message', userMessage)
+        }
+
+    </script>
+</body>
+
+</html>
